@@ -1,0 +1,2330 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   出雲香 IZUMOKOU — Design tokens
+   墨黒・深藍・海の青黒・砂・霧白・生成り。金は光の一点にのみ。
+   ========================================================================== */
+
+@theme {
+  --color-sumi: #0d1117;
+  --color-yoru: #111a28;
+  --color-ai: #16233a;
+  --color-umi: #0e1b28;
+  --color-suna: #d6c8af;
+  --color-kiri: #ebe9e3;
+  --color-kinari: #efe9dc;
+  --color-kasumi: #8d939c;
+  --color-kin: #b59c6c;
+  --font-mincho: var(--font-mincho), "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --font-serif: var(--font-serif), "Times New Roman", serif;
+}
+
+@property --c {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #a9cdd8;
+}
+
+:root {
+  --sumi: #0d1117;
+  --yoru: #111a28;
+  --ai: #16233a;
+  --umi: #0e1b28;
+  --suna: #d6c8af;
+  --kiri: #ebe9e3;
+  --kinari: #efe9dc;
+  --kasumi: #8d939c;
+  --kin: #b59c6c;
+  --ink: #161a21;
+
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-slow: cubic-bezier(0.33, 0, 0.15, 1);
+  --gutter: max(7vw, 1.5rem);
+  --header-h: 4.25rem;
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+html {
+  background: var(--sumi);
+  color: var(--kiri);
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: var(--header-h);
+}
+
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--sumi);
+  font-family: var(--font-mincho), "Hiragino Mincho ProN", "Yu Mincho", serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 2;
+  letter-spacing: 0.08em;
+  font-feature-settings: "palt" 1;
+  word-break: auto-phrase;
+  overflow-wrap: anywhere;
+  line-break: strict;
+  text-wrap: pretty;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+/* ごく微細な粒子。グラデーションの段差を和らげ、紙や霧のような質感を与える */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+html.menu-open {
+  overflow: hidden;
+}
+
+::selection {
+  background: rgba(181, 156, 108, 0.35);
+  color: #fff;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+:focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: 6px;
+}
+
+h1,
+h2,
+h3,
+p,
+dl,
+dd,
+ul {
+  margin: 0;
+  padding: 0;
+  font-weight: 400;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  font: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 100;
+  padding: 0.75rem 1.25rem;
+  background: var(--kinari);
+  color: var(--ink);
+  font-size: 0.9rem;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+.pc-only {
+  display: none;
+}
+@media (min-width: 1024px) {
+  .pc-only {
+    display: inline;
+  }
+}
+
+.eyebrow {
+  font-family: var(--font-serif);
+  font-size: 0.75rem;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--kasumi);
+  line-height: 1.6;
+}
+
+.vertical {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+/* --------------------------------------------------------------------------
+   静かな出現
+   -------------------------------------------------------------------------- */
+
+.js [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+  filter: blur(6px);
+  transition:
+    opacity 1.8s var(--ease),
+    transform 1.8s var(--ease),
+    filter 1.8s var(--ease);
+  transition-delay: var(--d, 0s);
+}
+.js [data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+  filter: none;
+}
+
+
+/* --------------------------------------------------------------------------
+   Links & buttons
+   -------------------------------------------------------------------------- */
+
+.link-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 1em;
+  min-height: 48px;
+  font-size: 0.9rem;
+  letter-spacing: 0.18em;
+  color: var(--kiri);
+}
+.link-line::after {
+  content: "";
+  width: 2.4rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.7;
+  transition: width 0.9s var(--ease);
+}
+.link-line:hover::after,
+.link-line:focus-visible::after {
+  width: 3.8rem;
+}
+.link-line--muted {
+  color: var(--kasumi);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9em;
+  min-height: 56px;
+  padding: 0 2.2em;
+  font-size: 0.95rem;
+  letter-spacing: 0.2em;
+  transition:
+    background-color 0.8s var(--ease),
+    color 0.8s var(--ease),
+    border-color 0.8s var(--ease);
+}
+.btn--solid {
+  background: var(--kinari);
+  color: var(--ink);
+}
+.btn--solid:hover {
+  background: #fff;
+}
+.btn--line {
+  border: 1px solid rgba(235, 233, 227, 0.38);
+  color: var(--kiri);
+}
+.btn--line:hover {
+  border-color: var(--kiri);
+}
+.btn__arrow {
+  font-family: var(--font-serif);
+  font-size: 1.05em;
+}
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+
+.site-header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  transition:
+    background-color 1s var(--ease),
+    border-color 1s var(--ease);
+  border-bottom: 1px solid transparent;
+}
+.site-header.is-scrolled {
+  background: rgba(11, 15, 21, 0.94);
+  border-bottom-color: rgba(235, 233, 227, 0.06);
+}
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-h);
+  padding: 0 var(--gutter);
+  padding-top: env(safe-area-inset-top);
+}
+.site-logo {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  letter-spacing: 0.48em;
+  color: var(--kiri);
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+}
+.site-nav {
+  display: none;
+}
+.menu-button {
+  min-height: 48px;
+  min-width: 48px;
+  font-family: var(--font-serif);
+  font-size: 0.82rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--kiri);
+}
+
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3rem;
+  padding: 6rem var(--gutter) 4rem;
+  background: #0a0e14;
+  animation: fade-in 0.8s var(--ease);
+}
+.mobile-menu[hidden] {
+  display: none;
+}
+.mobile-menu__close {
+  position: absolute;
+  top: calc(env(safe-area-inset-top) + 0.6rem);
+  right: var(--gutter);
+}
+.mobile-menu ul {
+  display: grid;
+  gap: 1.6rem;
+}
+.mobile-menu li a {
+  display: flex;
+  align-items: baseline;
+  gap: 1.2rem;
+  min-height: 48px;
+}
+.mobile-menu__en {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+}
+.mobile-menu__ja {
+  font-size: 0.8rem;
+  color: var(--kasumi);
+}
+.mobile-menu__store {
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .site-nav {
+    display: block;
+  }
+  .site-nav ul {
+    display: flex;
+    gap: 2.8rem;
+    align-items: center;
+  }
+  .site-nav a {
+    font-family: var(--font-serif);
+    font-size: 0.95rem;
+    letter-spacing: 0.2em;
+    color: rgba(235, 233, 227, 0.72);
+    transition: color 0.6s var(--ease);
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+  .site-nav a:hover {
+    color: var(--kiri);
+  }
+  .site-nav__store {
+    border-bottom: 1px solid rgba(181, 156, 108, 0.6);
+    min-height: auto !important;
+    padding-bottom: 0.15rem;
+  }
+  .menu-button:not(.mobile-menu__close) {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   Atmosphere (WebGL)
+   ========================================================================== */
+
+.atmosphere {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  opacity: 0;
+  transition: opacity 2.6s var(--ease-slow);
+}
+.atmosphere[data-ready] {
+  opacity: 1;
+}
+
+.image-slot {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.image-slot__img {
+  object-fit: cover;
+  animation: breathe-zoom 40s var(--ease-slow) infinite alternate;
+}
+
+/* ==========================================================================
+   FIRST VIEW
+   ========================================================================== */
+
+.hero {
+  position: relative;
+  height: 210svh;
+  --sp: 0;
+}
+.hero__stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  /* WebGL が無い環境・読み込み前の夜明けの浜 */
+  background:
+    radial-gradient(ellipse 80% 22% at 50% 58%, rgba(214, 196, 168, 0.22), transparent 70%),
+    linear-gradient(
+      to bottom,
+      #090d14 0%,
+      #141d2b 40%,
+      #2a3342 56%,
+      #1c2735 56.4%,
+      #0d151f 75%,
+      #07090e 100%
+    );
+}
+.hero__stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: #07090e;
+  opacity: clamp(0, calc((var(--sp) - 0.55) * 2.4), 1);
+}
+.hero__content {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  text-align: center;
+  padding-bottom: 10svh;
+  transform: translate3d(0, calc(var(--sp) * -14svh), 0);
+  opacity: calc(1 - var(--sp) * 2.2);
+}
+.hero__title {
+  display: grid;
+  justify-items: center;
+  gap: 1.4rem;
+}
+.hero__en {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: 0.82rem;
+  letter-spacing: 0.72em;
+  padding-left: 0.72em;
+  color: rgba(235, 233, 227, 0.78);
+  animation: rise-in 2.6s var(--ease) 0.9s both;
+}
+.hero__ja {
+  font-size: clamp(3.6rem, 17vw, 9rem);
+  line-height: 1.15;
+  letter-spacing: 0.34em;
+  padding-left: 0.34em;
+  color: #eeebe4;
+  text-shadow: 0 0 60px rgba(8, 12, 18, 0.45);
+  animation: mist-in 3.2s var(--ease) 0.2s both;
+}
+.hero__tagline {
+  margin-top: 2.6rem;
+  font-size: 0.95rem;
+  letter-spacing: 0.56em;
+  padding-left: 0.56em;
+  color: rgba(235, 233, 227, 0.8);
+  animation: rise-in 2.6s var(--ease) 1.8s both;
+}
+.scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: calc(3.5svh + env(safe-area-inset-bottom));
+  z-index: 2;
+  transform: translateX(-50%);
+  display: grid;
+  justify-items: center;
+  gap: 0.35rem;
+  padding: 0.5rem 1rem;
+  opacity: calc(1 - var(--sp) * 5);
+  animation: fade-in 2s var(--ease) 2.8s both;
+}
+.scroll-cue__en {
+  font-family: var(--font-serif);
+  font-size: 0.68rem;
+  letter-spacing: 0.5em;
+  padding-left: 0.5em;
+  color: rgba(235, 233, 227, 0.7);
+  line-height: 1;
+}
+.scroll-cue__ja {
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  padding-left: 0.3em;
+  color: rgba(235, 233, 227, 0.55);
+  line-height: 1.4;
+}
+.scroll-cue__line {
+  display: block;
+  width: 1px;
+  height: 3.6rem;
+  margin-top: 0.6rem;
+  background: linear-gradient(to bottom, rgba(181, 156, 108, 0.9), rgba(181, 156, 108, 0));
+  transform-origin: top;
+  animation: line-drop 3.6s var(--ease-slow) infinite;
+}
+
+@media (min-width: 1024px) {
+  .hero__en {
+    font-size: 0.95rem;
+  }
+  .hero__tagline {
+    font-size: 1.05rem;
+  }
+}
+
+/* ==========================================================================
+   SCENE 01 — 神々が集う海
+   ========================================================================== */
+
+.inasa {
+  position: relative;
+  overflow: hidden;
+  color: var(--ink);
+  background: linear-gradient(
+    to bottom,
+    #07090e 0%,
+    #2b3542 10%,
+    #8e999f 26%,
+    #cfd3d1 42%,
+    #dedfdb 56%,
+    #d6d9d6 64%
+  );
+  --p: 0.5;
+}
+.inasa__scene {
+  position: absolute;
+  inset: 0;
+}
+.inasa__light {
+  position: absolute;
+  inset: 30% -20% 20%;
+  background: radial-gradient(ellipse 50% 32% at 50% 62%, rgba(255, 246, 228, 0.85), rgba(255, 246, 228, 0) 70%);
+  transform: translate3d(0, calc((var(--p) - 0.5) * -14svh), 0);
+}
+.inasa__sea {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 66%;
+  bottom: 0;
+  background: linear-gradient(to bottom, #9aa8b1 0%, #6f8290 18%, #4a5d6c 50%, #25323e 85%, #121a24 100%);
+  box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.5);
+  transform: translate3d(0, calc((var(--p) - 0.5) * 5svh), 0);
+}
+/* 光の道 */
+.inasa__sea::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 40%;
+  height: 70%;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse 30% 100% at 50% 0%, rgba(255, 248, 232, 0.55), transparent 80%);
+  mix-blend-mode: soft-light;
+}
+.inasa__swell {
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55) 45%, rgba(255, 255, 255, 0.2) 60%, transparent);
+  animation: swell 16s ease-in-out infinite alternate;
+}
+.inasa__swell:nth-child(1) {
+  top: 12%;
+  opacity: 0.5;
+}
+.inasa__swell:nth-child(2) {
+  top: 30%;
+  animation-duration: 21s;
+  animation-delay: -6s;
+  opacity: 0.35;
+}
+.inasa__swell:nth-child(3) {
+  top: 58%;
+  animation-duration: 12s;
+  animation-delay: -3s;
+  opacity: 0.25;
+}
+.inasa__mist {
+  position: absolute;
+  inset: 20% -30% 18%;
+  background:
+    radial-gradient(ellipse 40% 26% at 30% 55%, rgba(244, 243, 239, 0.7), transparent 70%),
+    radial-gradient(ellipse 36% 20% at 72% 62%, rgba(244, 243, 239, 0.55), transparent 70%);
+  filter: blur(10px);
+  animation: mist-drift 70s ease-in-out infinite alternate;
+  transform: translate3d(calc((var(--p) - 0.5) * 8vw), 0, 0);
+}
+.inasa__photo .image-slot__img {
+  transform: scale(calc(1.08 - var(--p) * 0.06));
+}
+.inasa.has-photo .inasa__text {
+  color: var(--kiri);
+}
+
+.inasa__text {
+  position: relative;
+  z-index: 1;
+  min-height: 135svh;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto 1fr auto;
+  padding: 26svh var(--gutter) 10svh;
+}
+.inasa__place {
+  grid-column: 1;
+  grid-row: 1;
+  display: grid;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+  line-height: 1.6;
+}
+.inasa__place span[lang="en"] {
+  font-family: var(--font-serif);
+  font-size: 0.7rem;
+  letter-spacing: 0.44em;
+  color: rgba(22, 26, 33, 0.6);
+}
+.inasa__title {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  writing-mode: vertical-rl;
+  font-size: clamp(3rem, 14.5vw, 5.4rem);
+  line-height: 1.3;
+  letter-spacing: 0.16em;
+  color: rgba(16, 20, 27, 0.92);
+  --d: 0.3s;
+}
+.inasa__title span {
+  display: block;
+}
+.inasa__title span + span {
+  margin-top: 1.6em;
+}
+.inasa__note {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  align-self: end;
+  font-size: 0.85rem;
+  line-height: 2.3;
+  letter-spacing: 0.14em;
+  color: rgba(235, 233, 227, 0.82);
+}
+
+@media (min-width: 1024px) {
+  .inasa__text {
+    grid-template-columns: 1fr;
+    padding: 24vh var(--gutter) 12vh;
+  }
+  .inasa__place {
+    justify-items: center;
+    text-align: center;
+  }
+  .inasa__title {
+    grid-column: 1;
+    grid-row: 2;
+    writing-mode: horizontal-tb;
+    align-self: center;
+    justify-self: center;
+    font-size: clamp(4rem, 8.2vw, 10rem);
+    letter-spacing: 0.14em;
+    padding-left: 0.14em;
+    white-space: nowrap;
+    /* グリッドの行ではなくシーン全体を基準に、水平線のすぐ上へ置く */
+    grid-area: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: calc(34% + 3vh);
+    text-align: center;
+  }
+  .inasa__title span {
+    display: inline;
+  }
+  .inasa__title span + span {
+    margin-top: 0;
+  }
+  .inasa__note {
+    grid-row: 3;
+    justify-self: end;
+    text-align: right;
+  }
+}
+
+/* ==========================================================================
+   SCENE 02 — 神話への入口
+   ========================================================================== */
+
+.myth {
+  position: relative;
+  height: 190svh;
+  background: #080b10;
+}
+.myth::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 55svh;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(to bottom, #121a24 0%, rgba(8, 11, 16, 0.6) 45%, rgba(8, 11, 16, 0) 100%);
+}
+.myth__stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+.myth__stage::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 30svh;
+  pointer-events: none;
+  background: linear-gradient(to bottom, rgba(8, 11, 16, 0), #080b10);
+}
+.myth__copy {
+  position: relative;
+  z-index: 1;
+  writing-mode: vertical-rl;
+  font-size: clamp(1.55rem, 6.6vw, 2.6rem);
+  line-height: 2.5;
+  letter-spacing: 0.32em;
+  color: #e6e4de;
+}
+.myth__copy span {
+  display: block;
+}
+.myth__copy span:nth-child(2) {
+  --d: 0.9s;
+  padding-top: 1.5em;
+}
+.myth__copy span:nth-child(3) {
+  --d: 1.8s;
+  padding-top: 3em;
+}
+.js .myth__copy [data-reveal] {
+  transition-duration: 2.6s;
+}
+.myth__en {
+  position: absolute;
+  bottom: 9svh;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 0.95rem;
+  letter-spacing: 0.2em;
+  color: rgba(235, 233, 227, 0.45);
+  --d: 2.6s;
+}
+
+/* ==========================================================================
+   SCENE 03 — 七つの香り
+   ========================================================================== */
+
+.fragrances {
+  position: relative;
+  background: #080b10;
+  --sp: 0;
+}
+.fragrances__intro {
+  min-height: 100svh;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  text-align: center;
+  gap: 2rem;
+  padding: 0 var(--gutter);
+}
+.fragrances__title {
+  font-size: clamp(2.4rem, 11vw, 5rem);
+  letter-spacing: 0.36em;
+  padding-left: 0.36em;
+  line-height: 1.4;
+}
+.fragrances__lead {
+  font-size: 0.92rem;
+  line-height: 2.5;
+  letter-spacing: 0.16em;
+  color: rgba(235, 233, 227, 0.72);
+  --d: 0.4s;
+}
+.fragrances__hint span {
+  display: block;
+  width: 1px;
+  height: 4rem;
+  background: linear-gradient(to bottom, rgba(235, 233, 227, 0.4), transparent);
+  transform-origin: top;
+  animation: line-drop 3.6s var(--ease-slow) infinite;
+}
+.fragrances__progress {
+  display: none;
+}
+
+.chapter {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.6rem;
+  padding: 14svh var(--gutter) 12svh;
+  text-align: center;
+  isolation: isolate;
+}
+.chapter__light {
+  position: absolute;
+  inset: -10%;
+  z-index: -1;
+  background: radial-gradient(
+    circle 70vmin at 50% 34%,
+    color-mix(in srgb, var(--c) 30%, transparent) 0%,
+    color-mix(in srgb, var(--c) 9%, transparent) 45%,
+    transparent 100%
+  );
+  animation: light-breathe 11s ease-in-out infinite alternate;
+}
+.chapter__smoke {
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  bottom: 0;
+  height: 70%;
+}
+.chapter__num {
+  position: absolute;
+  top: calc(var(--header-h) + 3svh);
+  left: var(--gutter);
+  display: flex;
+  gap: 0.6em;
+  font-family: var(--font-serif);
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+  color: rgba(235, 233, 227, 0.6);
+}
+.chapter__num-total {
+  color: rgba(235, 233, 227, 0.3);
+}
+.chapter__name {
+  writing-mode: vertical-rl;
+  font-size: clamp(8rem, 46vw, 15rem);
+  line-height: 1;
+  letter-spacing: 0.08em;
+  color: color-mix(in srgb, var(--c) 22%, #efece6);
+  text-shadow: 0 0 80px color-mix(in srgb, var(--c) 35%, transparent);
+}
+.chapter__name.is-long {
+  font-size: clamp(6rem, 30vw, 10.5rem);
+}
+.chapter__body {
+  display: grid;
+  justify-items: center;
+  gap: 1.6rem;
+}
+.chapter__note {
+  display: grid;
+  gap: 0.2rem;
+  line-height: 1.8;
+}
+.chapter__note-en {
+  font-family: var(--font-serif);
+  font-size: 0.82rem;
+  letter-spacing: 0.44em;
+  padding-left: 0.44em;
+  color: color-mix(in srgb, var(--c) 55%, #cfd2d6);
+}
+.chapter__note-ja {
+  font-size: 0.95rem;
+  letter-spacing: 0.24em;
+}
+.chapter__copy {
+  white-space: pre-line;
+  font-size: 1.1rem;
+  line-height: 2.3;
+  letter-spacing: 0.16em;
+  --d: 0.25s;
+}
+.chapter__moment {
+  display: grid;
+  gap: 0.2rem;
+  --d: 0.45s;
+}
+.chapter__moment dt {
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  color: var(--kasumi);
+}
+.chapter__moment dd {
+  font-size: 0.95rem;
+  letter-spacing: 0.16em;
+}
+.chapter .link-line {
+  --d: 0.6s;
+}
+
+/* PC：横へ進む章 */
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  .fragrances {
+    height: calc(var(--panels) * 100vh);
+  }
+  .fragrances__pin {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    /* clip：フォーカス移動でブラウザが勝手に横スクロールしないように */
+    overflow: clip;
+  }
+  .fragrances__track {
+    display: flex;
+    height: 100%;
+    width: calc(var(--panels) * 100vw);
+    transform: translate3d(calc(var(--sp) * (var(--panels) - 1) * -100vw), 0, 0);
+    will-change: transform;
+  }
+  .fragrances__intro,
+  .fragrances__panel {
+    flex: none;
+    width: 100vw;
+    height: 100vh;
+    min-height: 0;
+  }
+  .fragrances__panel .chapter {
+    height: 100vh;
+    min-height: 0;
+  }
+  .fragrances__hint span {
+    width: 4rem;
+    height: 1px;
+    background: linear-gradient(to right, rgba(235, 233, 227, 0.45), transparent);
+    transform-origin: left;
+    animation-name: line-slide;
+  }
+  .fragrances__progress {
+    display: block;
+    position: absolute;
+    left: var(--gutter);
+    right: var(--gutter);
+    bottom: 6vh;
+    height: 1px;
+    background: rgba(235, 233, 227, 0.1);
+  }
+  .fragrances__progress span {
+    display: block;
+    height: 100%;
+    width: calc(var(--sp) * 100%);
+    background: rgba(181, 156, 108, 0.7);
+  }
+}
+
+@media (min-width: 1024px) {
+  .chapter {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    align-items: center;
+    text-align: left;
+    padding: 0 var(--gutter);
+    gap: 0 2vw;
+  }
+  .chapter__light {
+    background: radial-gradient(
+      circle 32vw at 34% 50%,
+      color-mix(in srgb, var(--c) 30%, transparent) 0%,
+      color-mix(in srgb, var(--c) 9%, transparent) 45%,
+      transparent 100%
+    );
+  }
+  .chapter__smoke {
+    left: 34%;
+  }
+  .chapter__name {
+    grid-column: 2 / span 5;
+    justify-self: center;
+    font-size: min(54vh, 26vw);
+  }
+  .chapter__name.is-long {
+    font-size: min(38vh, 20vw);
+  }
+  .chapter__body {
+    grid-column: 8 / span 4;
+    justify-items: start;
+  }
+  .chapter__note-en {
+    padding-left: 0;
+  }
+  .chapter__copy {
+    font-size: 1.35rem;
+  }
+}
+
+/* ==========================================================================
+   SCENE 04 — 香りとの出会い
+   ========================================================================== */
+
+.finder {
+  position: relative;
+  overflow: hidden;
+  padding: 20svh var(--gutter) 12svh;
+  background: linear-gradient(to bottom, #080b10 0%, #0f1827 30%, #111c2e 100%);
+  isolation: isolate;
+  transition: --c 2s var(--ease);
+}
+.finder__light {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0;
+  background: radial-gradient(
+    ellipse 60% 45% at 50% 72%,
+    color-mix(in srgb, var(--c) 24%, transparent),
+    transparent 70%
+  );
+  transition: opacity 2.4s var(--ease);
+}
+.finder.has-result .finder__light {
+  opacity: 1;
+}
+.finder.has-result .finder__result {
+  min-height: 70svh;
+}
+.finder__inner {
+  display: grid;
+  gap: 8svh;
+}
+.finder__title {
+  margin-top: 1.2rem;
+  font-size: clamp(2rem, 9vw, 3.6rem);
+  line-height: 1.75;
+  letter-spacing: 0.2em;
+}
+.finder__wishes {
+  margin-top: 3.2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 2.2rem;
+  --d: 0.4s;
+}
+.finder__wish {
+  position: relative;
+  min-height: 52px;
+  padding: 0.4rem 0;
+  font-size: 1.2rem;
+  letter-spacing: 0.2em;
+  color: rgba(235, 233, 227, 0.62);
+  transition: color 0.8s var(--ease);
+}
+.finder__wish::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0.2em;
+  bottom: 0.55rem;
+  height: 1px;
+  background: var(--kin);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1s var(--ease);
+}
+.finder__wish:hover {
+  color: var(--kiri);
+}
+.finder__wish[aria-pressed="true"] {
+  color: var(--kiri);
+}
+.finder__wish[aria-pressed="true"]::after {
+  transform: scaleX(1);
+}
+
+.finder__result {
+  min-height: 34svh;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  text-align: center;
+}
+.finder__placeholder span {
+  display: block;
+  width: 1px;
+  height: 10rem;
+  background: linear-gradient(to bottom, transparent, rgba(235, 233, 227, 0.3), transparent);
+  animation: light-breathe 5s ease-in-out infinite alternate;
+}
+.finder__reveal {
+  display: grid;
+  justify-items: center;
+}
+.finder__reveal > * {
+  animation: emerge 2.4s var(--ease) both;
+}
+.finder__lead {
+  font-size: 0.95rem;
+  letter-spacing: 0.24em;
+  color: rgba(235, 233, 227, 0.72);
+}
+.finder__name {
+  margin-top: 1.4rem;
+  font-size: clamp(5rem, 28vw, 9rem);
+  line-height: 1.2;
+  letter-spacing: 0.14em;
+  padding-left: 0.14em;
+  color: color-mix(in srgb, var(--c) 20%, #efece6);
+  text-shadow: 0 0 70px color-mix(in srgb, var(--c) 40%, transparent);
+  animation-delay: 0.5s !important;
+  animation-duration: 3.2s !important;
+}
+.finder__note {
+  display: flex;
+  gap: 1.2em;
+  align-items: baseline;
+  margin-top: 0.8rem;
+  font-size: 0.95rem;
+  letter-spacing: 0.2em;
+  animation-delay: 1.2s !important;
+}
+.finder__note span[lang="en"] {
+  font-family: var(--font-serif);
+  font-size: 0.8rem;
+  letter-spacing: 0.4em;
+  color: color-mix(in srgb, var(--c) 55%, #cfd2d6);
+}
+.finder__message {
+  margin-top: 2.2rem;
+  white-space: pre-line;
+  font-size: 0.95rem;
+  line-height: 2.3;
+  letter-spacing: 0.12em;
+  color: rgba(235, 233, 227, 0.82);
+  animation-delay: 1.6s !important;
+}
+.finder__actions {
+  margin-top: 2.2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem 2.4rem;
+  animation-delay: 2s !important;
+}
+.finder__again {
+  margin-top: 1.4rem;
+  min-height: 48px;
+  font-size: 0.8rem;
+  letter-spacing: 0.24em;
+  color: var(--kasumi);
+  text-decoration: underline;
+  text-underline-offset: 0.5em;
+  text-decoration-color: rgba(141, 147, 156, 0.4);
+  animation-delay: 2.2s !important;
+}
+.finder__disclaimer {
+  margin-top: 6svh;
+  text-align: center;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  color: rgba(141, 147, 156, 0.85);
+}
+
+@media (min-width: 1024px) {
+  .finder {
+    padding: 22vh var(--gutter) 14vh;
+  }
+  .finder__inner {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 6vw;
+    min-height: 64vh;
+  }
+  .finder__wishes {
+    max-width: 30rem;
+  }
+  .finder__light {
+    background: radial-gradient(
+      ellipse 40% 55% at 72% 50%,
+      color-mix(in srgb, var(--c) 24%, transparent),
+      transparent 70%
+    );
+  }
+}
+
+/* ==========================================================================
+   SCENE 05 — 出雲香が生まれた理由（生成り）
+   ========================================================================== */
+
+.story {
+  position: relative;
+  background: var(--kinari);
+  color: var(--ink);
+  padding: 20svh var(--gutter) 18svh;
+  display: grid;
+  justify-items: center;
+}
+.story .eyebrow {
+  color: #8c826f;
+}
+.story__label {
+  margin-top: 0.8rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+  color: #5b5850;
+  --d: 0.2s;
+}
+.story__quote {
+  margin: 12svh 0;
+  writing-mode: vertical-rl;
+  font-size: clamp(1.8rem, 8.2vw, 3.2rem);
+  line-height: 2.2;
+  letter-spacing: 0.26em;
+  color: #15181e;
+  --d: 0.3s;
+}
+.story__quote span {
+  display: block;
+}
+.story__quote span:nth-child(2) {
+  padding-top: 1em;
+}
+.story__quote span:nth-child(3) {
+  padding-top: 2em;
+}
+.story__body {
+  display: grid;
+  gap: 2.2rem;
+  max-width: 34rem;
+  font-size: 0.98rem;
+  line-height: 2.4;
+  letter-spacing: 0.12em;
+  color: #2b2e34;
+}
+.story__photo {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .story {
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-rows: auto auto 1fr;
+    column-gap: 8vw;
+    justify-items: start;
+    padding: 24vh var(--gutter) 22vh;
+  }
+  .story__eyebrow,
+  .story__label {
+    grid-column: 1;
+  }
+  .story__quote {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+    margin: 0;
+    font-size: clamp(2.4rem, 3.4vw, 3.6rem);
+  }
+  .story__body {
+    grid-column: 3;
+    grid-row: 1 / span 3;
+    align-self: end;
+  }
+}
+
+/* ==========================================================================
+   SCENE 06 — 海から、香りへ
+   ========================================================================== */
+
+.seawater {
+  position: relative;
+  overflow: hidden;
+  padding: 16svh var(--gutter) 18svh;
+  background: linear-gradient(to bottom, #0b1520 0%, #0e1c2a 45%, #0a121b 100%);
+  display: grid;
+  gap: 6svh;
+}
+.seawater__art {
+  position: relative;
+  height: 52svh;
+  --surface: 70%;
+}
+.seawater__art::after {
+  content: "";
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  top: var(--surface);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(235, 233, 227, 0.28), transparent);
+}
+.seawater__drop {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 1px;
+  height: 12svh;
+  background: linear-gradient(to bottom, transparent, rgba(235, 233, 227, 0.85));
+  animation: drop 12s var(--ease-slow) infinite;
+}
+.seawater__ripple {
+  position: absolute;
+  left: 50%;
+  top: var(--surface);
+  width: min(78vw, 32rem);
+  aspect-ratio: 4 / 1;
+  border: 1px solid rgba(235, 233, 227, 0.5);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  animation: ripple 12s var(--ease) infinite;
+}
+.seawater__ripple:nth-of-type(3) {
+  animation-delay: 0.7s;
+}
+.seawater__ripple:nth-of-type(4) {
+  animation-delay: 1.4s;
+}
+.seawater__smoke {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% - var(--surface));
+  height: 80%;
+  animation: smoke-cycle 12s linear infinite;
+}
+.seawater__title {
+  margin-top: 1.2rem;
+  font-size: clamp(2.6rem, 12vw, 5.6rem);
+  line-height: 1.5;
+  letter-spacing: 0.22em;
+}
+.seawater__body {
+  margin-top: 2.4rem;
+  font-size: 0.95rem;
+  line-height: 2.4;
+  letter-spacing: 0.13em;
+  color: rgba(235, 233, 227, 0.8);
+  --d: 0.3s;
+}
+.seawater__body + .seawater__body {
+  margin-top: 1.4rem;
+  --d: 0.5s;
+}
+.seawater__photos {
+  display: grid;
+  grid-template-columns: 1fr 0.7fr;
+  gap: 4vw;
+  align-items: end;
+}
+.seawater__photo {
+  position: relative;
+  aspect-ratio: 4 / 5;
+}
+
+@media (min-width: 1024px) {
+  .seawater {
+    grid-template-columns: 1.1fr 1fr;
+    align-items: center;
+    gap: 6vw;
+    min-height: 110vh;
+  }
+  .seawater__art {
+    height: 70vh;
+  }
+  .seawater__photos {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ==========================================================================
+   SCENE 07 — 香りを迎える（商品）
+   ========================================================================== */
+
+.product {
+  position: relative;
+  overflow: clip;
+  padding: 18svh var(--gutter) 16svh;
+  background: var(--sumi);
+}
+.product__head {
+  text-align: center;
+  display: grid;
+  justify-items: center;
+}
+.product__title {
+  margin-top: 1rem;
+  font-size: clamp(1.8rem, 7.2vw, 3.8rem);
+  letter-spacing: 0.22em;
+  padding-left: 0.22em;
+  white-space: nowrap;
+  line-height: 1.6;
+}
+.product__layout {
+  margin-top: 8svh;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 6svh;
+}
+.product__stage {
+  position: relative;
+  height: 46svh;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  transition: --c 1.6s var(--ease);
+}
+.product__glow {
+  position: absolute;
+  inset: 0 -10%;
+  background: radial-gradient(
+    ellipse 45% 40% at 50% 92%,
+    color-mix(in srgb, var(--c) 22%, transparent),
+    transparent 75%
+  );
+}
+.product__stage::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(235, 233, 227, 0.2), transparent);
+}
+.product__photo {
+  position: absolute;
+  inset: 0;
+  animation: fade-in 1.4s var(--ease);
+}
+.product__photo img {
+  object-fit: cover;
+  animation: breathe-zoom 30s var(--ease-slow) infinite alternate;
+}
+.product__shelf {
+  position: relative;
+  width: 100%;
+  max-width: 44rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 2.4%;
+}
+.product__slot {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 5.6rem;
+  opacity: 0.55;
+  transition:
+    opacity 1.4s var(--ease),
+    transform 1.4s var(--ease);
+}
+.product__slot.is-active {
+  opacity: 1;
+  transform: translateY(-5%);
+}
+.product__smoke {
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  height: 34svh;
+}
+
+.package {
+  container-type: inline-size;
+  position: relative;
+  aspect-ratio: 1 / 4.6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 12%;
+  color: rgba(28, 40, 58, 0.62);
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--c) 82%, #1a2230) 0%,
+    var(--c) 14%,
+    color-mix(in srgb, var(--c) 88%, #fff) 55%,
+    color-mix(in srgb, var(--c) 90%, #1a2230) 100%
+  );
+  box-shadow: 0 2.4rem 2.4rem -1.8rem rgba(0, 0, 0, 0.7);
+}
+.package__mark {
+  width: 58%;
+}
+.package__brand {
+  margin-top: 8cqw;
+  writing-mode: vertical-rl;
+  font-size: 24cqw;
+  line-height: 1;
+  letter-spacing: 0.1em;
+}
+.package__en {
+  margin-top: 8cqw;
+  width: 60%;
+  text-align: center;
+  font-family: var(--font-serif);
+  font-size: 7cqw;
+  line-height: 1.3;
+  letter-spacing: 0.05em;
+}
+.package__diamond {
+  position: absolute;
+  left: 50%;
+  bottom: 9%;
+  width: 60cqw;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.28);
+  transform: translateX(-50%) rotate(45deg);
+}
+.package__diamond > span {
+  transform: rotate(-45deg);
+  font-size: 30cqw;
+  line-height: 1;
+  color: rgba(28, 40, 58, 0.55);
+}
+.package__diamond > span.is-long {
+  writing-mode: vertical-rl;
+  font-size: 17cqw;
+}
+
+.product__picker {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.2rem 0.4rem;
+}
+.product__pick {
+  min-height: 48px;
+  min-width: 48px;
+  padding: 0.3rem 0.8rem;
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  color: rgba(235, 233, 227, 0.5);
+  border-bottom: 1px solid transparent;
+  transition:
+    color 0.8s var(--ease),
+    border-color 0.8s var(--ease);
+}
+.product__pick:hover {
+  color: var(--kiri);
+}
+.product__pick[aria-pressed="true"] {
+  color: var(--kiri);
+  border-bottom-color: var(--kin);
+}
+.product__detail {
+  margin-top: 3rem;
+  text-align: center;
+}
+.product__name {
+  font-size: clamp(3.4rem, 16vw, 5.6rem);
+  line-height: 1.3;
+  letter-spacing: 0.14em;
+  padding-left: 0.14em;
+  animation: emerge 1.8s var(--ease) both;
+}
+.product__note {
+  display: flex;
+  justify-content: center;
+  gap: 1.2em;
+  align-items: baseline;
+  letter-spacing: 0.2em;
+}
+.product__note span[lang="en"] {
+  font-family: var(--font-serif);
+  font-size: 0.8rem;
+  letter-spacing: 0.4em;
+  color: var(--kasumi);
+}
+.product__spec {
+  margin: 2.6rem auto 0;
+  max-width: 26rem;
+  text-align: left;
+  border-top: 1px solid rgba(235, 233, 227, 0.1);
+}
+.product__spec > div {
+  display: grid;
+  grid-template-columns: 6.5em minmax(0, 1fr);
+  gap: 1rem;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid rgba(235, 233, 227, 0.1);
+  font-size: 0.9rem;
+  line-height: 1.8;
+}
+.product__spec dt {
+  color: var(--kasumi);
+  letter-spacing: 0.2em;
+  font-size: 0.8rem;
+}
+.product__actions {
+  margin: 2.8rem auto 0;
+  max-width: 26rem;
+  display: grid;
+  gap: 0.9rem;
+}
+.product__store-note {
+  margin-top: 1.4rem;
+  text-align: center;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--kasumi);
+  line-height: 1.9;
+}
+
+@media (min-width: 1024px) {
+  .product__layout {
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    align-items: end;
+    gap: 6vw;
+  }
+  .product__stage {
+    height: 72vh;
+  }
+  .product__slot {
+    max-width: 6.8rem;
+  }
+  .product__picker,
+  .product__note {
+    justify-content: flex-start;
+  }
+  .product__detail {
+    text-align: left;
+  }
+  .product__name {
+    padding-left: 0;
+  }
+  .product__spec,
+  .product__actions {
+    margin-left: 0;
+  }
+  .product__store-note {
+    text-align: left;
+  }
+}
+
+/* ==========================================================================
+   LAST SCENE
+   ========================================================================== */
+
+.last {
+  position: relative;
+  background: #07090e;
+}
+.last__stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 80% 18% at 50% 58%, rgba(200, 140, 120, 0.18), transparent 70%),
+    linear-gradient(to bottom, #0a0c14 0%, #231d27 50%, #2e2530 56%, #15161f 56.4%, #0a0c12 80%, #06070b 100%);
+}
+.last__stage::before {
+  /* 商品から夕暮れへの溶け込み */
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 30svh;
+  z-index: 1;
+  background: linear-gradient(to bottom, var(--sumi), rgba(13, 17, 23, 0));
+}
+.last__content {
+  position: relative;
+  z-index: 2;
+  margin-top: -100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 38svh var(--gutter) 22svh;
+  gap: 32svh;
+}
+.last__copy {
+  display: grid;
+  gap: 0.6rem;
+  font-size: clamp(1.2rem, 5.4vw, 1.9rem);
+  line-height: 2.1;
+  letter-spacing: 0.22em;
+  color: #ece9e3;
+  text-shadow: 0 0 30px rgba(6, 7, 11, 0.6);
+}
+.last__copy span:nth-child(2) {
+  color: rgba(236, 233, 227, 0.85);
+}
+.last__copy2 {
+  font-size: clamp(0.95rem, 4vw, 1.25rem);
+  letter-spacing: 0.24em;
+  color: rgba(236, 233, 227, 0.82);
+  text-shadow: 0 0 30px rgba(6, 7, 11, 0.6);
+}
+.last__logo {
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  margin-bottom: -26svh;
+}
+.last__logo-en {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  font-size: 0.85rem;
+  letter-spacing: 0.72em;
+  padding-left: 0.72em;
+  color: rgba(236, 233, 227, 0.75);
+}
+.last__logo-ja {
+  font-size: clamp(2.6rem, 12vw, 5rem);
+  letter-spacing: 0.34em;
+  padding-left: 0.34em;
+  line-height: 1.3;
+}
+.last__store {
+  --d: 0.6s;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+.site-footer {
+  background: #06070b;
+  border-top: 1px solid rgba(235, 233, 227, 0.05);
+  padding: 9svh var(--gutter) calc(5svh + env(safe-area-inset-bottom));
+  font-size: 0.8rem;
+  color: var(--kasumi);
+}
+.site-footer__inner {
+  display: grid;
+  gap: 2.4rem;
+}
+.site-footer__brand {
+  display: grid;
+  gap: 0.3rem;
+  line-height: 1.8;
+}
+.site-footer__brand span[lang="en"] {
+  font-family: var(--font-serif);
+  letter-spacing: 0.5em;
+  color: var(--kiri);
+  font-size: 0.9rem;
+}
+.site-footer__nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 2rem;
+}
+.site-footer__nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-family: var(--font-serif);
+  font-size: 0.9rem;
+  letter-spacing: 0.18em;
+  color: rgba(235, 233, 227, 0.72);
+}
+.site-footer__nav a:hover {
+  color: var(--kiri);
+}
+.site-footer__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 2rem;
+  font-family: var(--font-serif);
+  letter-spacing: 0.16em;
+}
+@media (min-width: 1024px) {
+  .site-footer__inner {
+    grid-template-columns: 1fr auto;
+    align-items: end;
+  }
+  .site-footer__meta {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ==========================================================================
+   香煙（CSS）
+   ========================================================================== */
+
+.smoke {
+  width: 12rem;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+.smoke__stem {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 1px;
+  height: 22%;
+  background: linear-gradient(to top, rgba(235, 233, 227, 0.4), rgba(235, 233, 227, 0));
+}
+.smoke__wisp {
+  position: absolute;
+  left: 50%;
+  bottom: 12%;
+  width: 0.6rem;
+  height: 38%;
+  margin-left: -0.3rem;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 50% 60%, rgba(235, 233, 227, 0.32), rgba(235, 233, 227, 0) 70%);
+  filter: blur(6px);
+  opacity: 0;
+  animation: wisp 13s cubic-bezier(0.3, 0, 0.3, 1) infinite;
+}
+.smoke__wisp:nth-child(2) {
+  animation-delay: -4.3s;
+  animation-name: wisp-2;
+}
+.smoke__wisp:nth-child(3) {
+  animation-delay: -8.6s;
+}
+
+/* ==========================================================================
+   Keyframes
+   ========================================================================== */
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes rise-in {
+  from {
+    opacity: 0.01;
+    transform: translate3d(0, 10px, 0);
+    filter: blur(4px);
+  }
+}
+@keyframes mist-in {
+  from {
+    opacity: 0.01;
+    filter: blur(14px);
+    letter-spacing: 0.5em;
+  }
+}
+@keyframes emerge {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translate3d(0, 10px, 0);
+  }
+}
+@keyframes line-drop {
+  0% {
+    transform: scaleY(0);
+    opacity: 1;
+  }
+  55% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 0;
+  }
+}
+@keyframes line-slide {
+  0% {
+    transform: scaleX(0);
+    opacity: 1;
+  }
+  55% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 0;
+  }
+}
+@keyframes swell {
+  from {
+    transform: translate3d(-8%, 0, 0);
+  }
+  to {
+    transform: translate3d(8%, 0, 0);
+  }
+}
+@keyframes mist-drift {
+  from {
+    translate: -6% 0;
+  }
+  to {
+    translate: 6% 0;
+  }
+}
+@keyframes light-breathe {
+  from {
+    opacity: 0.7;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes breathe-zoom {
+  from {
+    scale: 1;
+  }
+  to {
+    scale: 1.06;
+  }
+}
+@keyframes wisp {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(1, 0.6);
+  }
+  25% {
+    opacity: 0.9;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(1.6rem, -120%, 0) scale(6, 1.6) rotate(8deg);
+  }
+}
+@keyframes wisp-2 {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(1, 0.6);
+  }
+  25% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(-2rem, -115%, 0) scale(5, 1.8) rotate(-10deg);
+  }
+}
+@keyframes drop {
+  0% {
+    transform: translateY(-14svh);
+    opacity: 0;
+  }
+  6% {
+    opacity: 1;
+  }
+  22% {
+    transform: translateY(calc(0.7 * 52svh - 12svh));
+    opacity: 1;
+  }
+  24%,
+  100% {
+    transform: translateY(calc(0.7 * 52svh - 12svh));
+    opacity: 0;
+  }
+}
+@keyframes ripple {
+  0%,
+  22% {
+    transform: translate(-50%, -50%) scale(0.02);
+    opacity: 0;
+  }
+  24% {
+    opacity: 0.8;
+  }
+  70% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
+  }
+}
+@keyframes smoke-cycle {
+  0%,
+  34% {
+    opacity: 0;
+  }
+  50%,
+  88% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  @keyframes drop {
+    0% {
+      transform: translateY(-14vh);
+      opacity: 0;
+    }
+    6% {
+      opacity: 1;
+    }
+    22% {
+      transform: translateY(calc(0.7 * 70vh - 12svh));
+      opacity: 1;
+    }
+    24%,
+    100% {
+      transform: translateY(calc(0.7 * 70vh - 12svh));
+      opacity: 0;
+    }
+  }
+}
+
+/* ==========================================================================
+   動きを減らしたい方へ
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+  }
+  .js [data-reveal] {
+    transform: none;
+    filter: none;
+    transition: opacity 0.6s linear;
+    transition-delay: 0s;
+  }
+  .hero__content {
+    transform: none;
+  }
+  .inasa__light,
+  .inasa__sea,
+  .inasa__mist,
+  .inasa__photo .image-slot__img {
+    transform: none;
+  }
+  .smoke,
+  .scroll-cue__line,
+  .fragrances__hint span,
+  .seawater__drop {
+    display: none;
+  }
+  /* 波紋は静止した輪として残す */
+  .seawater__ripple {
+    transform: translate(-50%, -50%) scale(0.55);
+    opacity: 0.35;
+  }
+  .seawater__ripple:nth-of-type(3) {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0.2;
+  }
+  .seawater__ripple:nth-of-type(4) {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.1;
+  }
+}
+
+/* ==========================================================================
+   香りの詳細ページ
+   ========================================================================== */
+
+.detail {
+  background: #080b10;
+}
+.detail__hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: calc(var(--header-h) + 8svh) var(--gutter) 12svh;
+}
+.detail__light {
+  position: absolute;
+  inset: -10%;
+  z-index: -1;
+  background: radial-gradient(
+    circle at 50% 40%,
+    color-mix(in srgb, var(--c) 28%, transparent) 0%,
+    color-mix(in srgb, var(--c) 8%, transparent) 30%,
+    transparent 58%
+  );
+  animation: light-breathe 11s ease-in-out infinite alternate;
+}
+.detail__smoke {
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  bottom: 0;
+  height: 70%;
+}
+.detail__crumbs {
+  position: absolute;
+  top: calc(var(--header-h) + 1rem);
+  left: var(--gutter);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  color: var(--kasumi);
+}
+.detail__crumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6em;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.detail__crumbs li + li::before {
+  content: "—";
+  margin-right: 0.6em;
+  opacity: 0.5;
+}
+.detail__crumbs a:hover {
+  color: var(--kiri);
+}
+.detail__num {
+  font-family: var(--font-serif);
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+  color: rgba(235, 233, 227, 0.6);
+}
+.detail__num span {
+  opacity: 0.5;
+}
+.detail__name {
+  margin: 2.4rem 0;
+  writing-mode: vertical-rl;
+  font-size: clamp(8rem, 44vw, 16rem);
+  line-height: 1;
+  letter-spacing: 0.08em;
+  color: color-mix(in srgb, var(--c) 22%, #efece6);
+  text-shadow: 0 0 80px color-mix(in srgb, var(--c) 35%, transparent);
+  animation: mist-in 3s var(--ease) both;
+}
+.detail__name.is-long {
+  font-size: clamp(6rem, 30vw, 11rem);
+}
+.detail__note {
+  display: flex;
+  gap: 1.2em;
+  align-items: baseline;
+  letter-spacing: 0.22em;
+  animation: rise-in 2s var(--ease) 0.8s both;
+}
+.detail__note span[lang="en"] {
+  font-family: var(--font-serif);
+  font-size: 0.85rem;
+  letter-spacing: 0.44em;
+  color: color-mix(in srgb, var(--c) 55%, #cfd2d6);
+}
+.detail__copy {
+  margin-top: 2.4rem;
+  white-space: pre-line;
+  font-size: 1.15rem;
+  line-height: 2.3;
+  letter-spacing: 0.16em;
+}
+.detail__product {
+  display: grid;
+  gap: 8svh;
+  padding: 10svh var(--gutter) 12svh;
+  background: var(--sumi);
+}
+.detail__visual {
+  position: relative;
+  min-height: 60svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(
+    ellipse 50% 40% at 50% 85%,
+    color-mix(in srgb, var(--c) 18%, transparent),
+    transparent 75%
+  );
+}
+.detail__visual img {
+  object-fit: cover;
+}
+.detail__package {
+  width: calc(min(52svh, 34rem) / 4.6);
+}
+.detail__heading {
+  font-size: clamp(1.5rem, 6vw, 2.2rem);
+  letter-spacing: 0.22em;
+  line-height: 1.6;
+}
+.detail__spec {
+  margin-top: 2rem;
+}
+.detail__spec > div {
+  grid-template-columns: 8em minmax(0, 1fr);
+}
+.detail__actions {
+  margin-left: 0;
+}
+.detail__actions .btn {
+  font-size: 0.88rem;
+  letter-spacing: 0.12em;
+  padding: 0 1.4em;
+}
+.detail__howto {
+  padding: 12svh var(--gutter);
+  background: #0a0e14;
+  display: grid;
+  gap: 2.4rem;
+}
+.detail__steps {
+  display: grid;
+  gap: 1.2rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-width: 34rem;
+}
+.detail__steps li {
+  display: grid;
+  grid-template-columns: 2.6rem 1fr;
+  font-size: 0.95rem;
+  line-height: 2;
+  letter-spacing: 0.1em;
+}
+.detail__step-num {
+  font-family: var(--font-serif);
+  color: var(--kin);
+  letter-spacing: 0.1em;
+}
+.detail__cautions {
+  max-width: 34rem;
+  font-size: 0.8rem;
+  line-height: 2;
+  letter-spacing: 0.08em;
+  color: var(--kasumi);
+}
+.detail__cautions li::before {
+  content: "※ ";
+}
+.detail__pager {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1rem;
+  padding: 10svh var(--gutter);
+  background: #080b10;
+  border-top: 1px solid rgba(235, 233, 227, 0.06);
+}
+.detail__pager .link-line {
+  justify-self: center;
+  font-size: 0.8rem;
+}
+.detail__pager-link {
+  display: grid;
+  gap: 0.2rem;
+  min-height: 48px;
+}
+.detail__pager-link--next {
+  justify-items: end;
+  text-align: right;
+}
+.detail__pager-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  color: var(--kasumi);
+}
+.detail__pager-name {
+  font-size: 1.8rem;
+  letter-spacing: 0.12em;
+  line-height: 1.4;
+}
+@media (max-width: 639px) {
+  .detail__pager {
+    grid-template-columns: 1fr 1fr;
+  }
+  .detail__pager .link-line {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+}
+@media (min-width: 1024px) {
+  .detail__product {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 6vw;
+  }
+  .detail__howto {
+    grid-template-columns: 1fr 1.4fr;
+    column-gap: 6vw;
+  }
+  .detail__cautions {
+    grid-column: 2;
+  }
+}
+
+.not-found {
+  min-height: 100svh;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 2rem;
+  text-align: center;
+  padding: 0 var(--gutter);
+}
+.not-found__title {
+  font-size: clamp(1.3rem, 5vw, 2rem);
+  letter-spacing: 0.2em;
+  line-height: 2;
+}
