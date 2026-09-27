@@ -152,6 +152,9 @@ button {
   .pc-only {
     display: inline;
   }
+  .sp-only {
+    display: none;
+  }
 }
 
 .eyebrow {
@@ -629,25 +632,33 @@ button {
   padding: 26svh var(--gutter) 10svh;
 }
 .inasa__place {
+  /* スマホ：縦書きの見出しの足もとに、地名を添える */
   grid-column: 1;
   grid-row: 1;
+  align-self: end;
+  padding-bottom: 0.4rem;
   display: grid;
-  gap: 0.4rem;
-  font-size: 0.85rem;
-  letter-spacing: 0.3em;
-  line-height: 1.6;
+  align-content: start;
+  gap: 0.7rem;
+  line-height: 1.5;
+}
+/* 地名は装飾ではなく、主役の見出しに添えるもう一つの見出しとして読める大きさに */
+.inasa__place span:not([lang]) {
+  font-size: clamp(1.15rem, 5vw, 1.35rem);
+  letter-spacing: 0.2em;
+  color: rgba(16, 20, 27, 0.9);
 }
 .inasa__place span[lang="en"] {
   font-family: var(--font-serif);
-  font-size: 0.7rem;
-  letter-spacing: 0.44em;
-  color: rgba(22, 26, 33, 0.6);
+  font-size: 0.78rem;
+  letter-spacing: 0.4em;
+  color: rgba(22, 26, 33, 0.72);
 }
 .inasa__title {
   grid-column: 2;
-  grid-row: 1 / span 2;
+  grid-row: 1;
   writing-mode: vertical-rl;
-  font-size: clamp(3rem, 14.5vw, 5.4rem);
+  font-size: clamp(2.8rem, 13vw, 5rem);
   line-height: 1.3;
   letter-spacing: 0.16em;
   color: rgba(16, 20, 27, 0.92);
@@ -675,8 +686,24 @@ button {
     padding: 24vh var(--gutter) 12vh;
   }
   .inasa__place {
+    /* PC：見出しのすぐ上、明るい空に置いて一対に見せる */
+    grid-area: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: calc(34% + 3vh + clamp(3.6rem, 7.4vw, 9rem) * 1.3 + 2.2rem);
+    padding-bottom: 0;
     justify-items: center;
     text-align: center;
+  }
+  .inasa__place span:not([lang]) {
+    font-size: clamp(1.4rem, 1.9vw, 1.9rem);
+    letter-spacing: 0.26em;
+    padding-left: 0.26em;
+  }
+  .inasa__place span[lang="en"] {
+    font-size: 0.85rem;
+    padding-left: 0.4em;
   }
   .inasa__title {
     grid-column: 1;
@@ -684,7 +711,7 @@ button {
     writing-mode: horizontal-tb;
     align-self: center;
     justify-self: center;
-    font-size: clamp(4rem, 8.2vw, 10rem);
+    font-size: clamp(3.6rem, 7.4vw, 9rem);
     letter-spacing: 0.14em;
     padding-left: 0.14em;
     white-space: nowrap;
@@ -803,6 +830,44 @@ button {
   letter-spacing: 0.36em;
   padding-left: 0.36em;
   line-height: 1.4;
+}
+.fragrances__names {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.8rem 0;
+  max-width: 22rem;
+  margin: 0.4rem 0 0;
+  padding: 0;
+}
+.fragrances__name {
+  flex: 0 0 25%;
+  display: grid;
+  justify-items: center;
+  gap: 0.55rem;
+}
+.fragrances__name-num {
+  font-family: var(--font-serif);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  line-height: 1;
+  color: rgba(235, 233, 227, 0.42);
+}
+.fragrances__name-text {
+  font-size: 1.5rem;
+  line-height: 1.3;
+  letter-spacing: 0.1em;
+  padding-left: 0.1em;
+  white-space: nowrap;
+  color: color-mix(in srgb, var(--c) 18%, #efece6);
+}
+/* 名前の下に、その香りの光の色をひと筋 */
+.fragrances__name::after {
+  content: "";
+  width: 1.2rem;
+  height: 1px;
+  background: var(--c);
+  opacity: 0.55;
 }
 .fragrances__lead {
   font-size: 0.92rem;
@@ -2327,4 +2392,19 @@ button {
   font-size: clamp(1.3rem, 5vw, 2rem);
   letter-spacing: 0.2em;
   line-height: 2;
+}
+
+/* 七つの香りの名前（PC は一列） */
+@media (min-width: 1024px) {
+  .fragrances__names {
+    max-width: none;
+    flex-wrap: nowrap;
+    gap: 0 3.4rem;
+  }
+  .fragrances__name {
+    flex: none;
+  }
+  .fragrances__name-text {
+    font-size: 1.9rem;
+  }
 }

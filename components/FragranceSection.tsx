@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import FragranceCard from "./FragranceCard";
-import { fragrances } from "@/data/fragrances";
+import { fragrances, romanNumerals } from "@/data/fragrances";
 
 /**
  * SCENE 03 — 七つの香り。
@@ -48,10 +48,25 @@ export default function FragranceSection() {
             <h2 id="fragrance-title" className="fragrances__title" data-reveal>
               七つの香り
             </h2>
+            <ul className="fragrances__names" aria-label="七つの香りの名前">
+              {fragrances.map((f, i) => (
+                <li
+                  key={f.slug}
+                  className="fragrances__name"
+                  data-reveal
+                  style={{ "--c": f.color, "--d": `${0.3 + i * 0.12}s` } as React.CSSProperties}
+                >
+                  <span className="fragrances__name-num" aria-hidden="true">
+                    {romanNumerals[i]}
+                  </span>
+                  <span className="fragrances__name-text">{f.name}</span>
+                </li>
+              ))}
+            </ul>
             <p className="fragrances__lead" data-reveal>
-              縁、結、和、心、神迎、感謝、恵海。
-              <br />
-              七つの言葉が、七つの香りになりました。
+              七つの言葉が、
+              <br className="sp-only" />
+              七つの香りになりました。
             </p>
             <p className="fragrances__hint" aria-hidden="true">
               <span />
