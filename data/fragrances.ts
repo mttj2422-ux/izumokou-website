@@ -73,8 +73,8 @@ export const fragrances: Fragrance[] = [
     color: "#c6bfdc",
     price: null,
     storeUrl: null,
-    image: null,
-    drafts: ALL_DRAFT,
+    image: { src: "/images/products/palo-santo.jpg", alt: "出雲香「結」のパッケージ", width: 208, height: 1063 },
+    drafts: WITHOUT_IMAGE,
   },
   {
     slug: "agarwood",
@@ -115,8 +115,8 @@ export const fragrances: Fragrance[] = [
     color: "#b3d5de",
     price: null,
     storeUrl: null,
-    image: null,
-    drafts: ALL_DRAFT,
+    image: { src: "/images/products/marine.jpg", alt: "出雲香「神迎」のパッケージ", width: 434, height: 2300 },
+    drafts: WITHOUT_IMAGE,
   },
   {
     slug: "magnolia",
