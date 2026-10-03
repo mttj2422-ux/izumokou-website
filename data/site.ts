@@ -36,11 +36,11 @@ export const site = {
 
 /**
  * 検索エンジンへの公開可否。
- * 環境変数 SITE_ENV=production でビルドしたときだけ検索結果に載る（index）。
- * それ以外（仮 URL・プレビュー）は noindex になり、Jimdo の現行サイトと重複して評価されることを防ぐ。
- * → www.izumoko.com へ切り替えるタイミングで、本番環境に SITE_ENV=production を設定する。
+ * 本番デプロイ（Vercel の Production = main ブランチ。www.izumoko.com で配信）のときだけ検索結果に載る（index）。
+ * プレビュー（プルリクエストごとの仮 URL）は noindex のまま。
+ * Vercel 以外で公開する場合は、本番のビルドで環境変数 SITE_ENV=production を設定する。
  */
-export const isProductionSite = process.env.SITE_ENV === "production";
+export const isProductionSite = process.env.SITE_ENV === "production" || process.env.VERCEL_ENV === "production";
 
 /** 共通の商品基本情報（全7種共通） */
 export const productBasics = {

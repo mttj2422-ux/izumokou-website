@@ -81,7 +81,7 @@ npm run typecheck  # 型チェック
 
 1. `data/site.ts` の `storeUrl` が BASE（https://mttj2422.base.shop/）になっていることを確認
 2. Jimdo の各ページの URL を控え、`data/redirects.ts` に旧 URL → 新 URL を登録
-3. ホスティング側で環境変数 **`SITE_ENV=production`** を設定して再デプロイ（検索エンジンへの公開が有効になる）
+3. Vercel の本番（main ブランチ）では検索エンジンへの公開が自動で有効になる（Vercel 以外では環境変数 `SITE_ENV=production` を設定）
 4. ホスティング側に独自ドメイン `www.izumoko.com` を追加
 5. DNS の `www` の向き先（CNAME）を Jimdo からホスティング先へ変更
 6. `izumoko.com`（www なし）→ `https://www.izumoko.com` へのリダイレクトを設定
