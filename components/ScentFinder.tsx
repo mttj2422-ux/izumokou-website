@@ -78,7 +78,12 @@ export default function ScentFinder() {
                 <span lang="en">{fragrance.noteEn}</span>
                 <span>{fragrance.note}</span>
               </p>
-              <p className="finder__message">{wish.message}</p>
+              <p className="finder__deity">
+                <span className="finder__deity-label">宿る神様</span>
+                <span className="finder__deity-name">{fragrance.deity.name}</span>
+                <span className="finder__deity-theme">{fragrance.deity.theme}</span>
+              </p>
+              <p className="finder__message">{fragrance.deity.story}</p>
               <div className="finder__actions">
                 <Link href={`/fragrances/${fragrance.slug}`} className="link-line">
                   この香りを詳しく見る
@@ -104,7 +109,9 @@ export default function ScentFinder() {
         </div>
       </div>
       <p className="finder__disclaimer">
-        香りを選ぶ、ひとつのきっかけとしてお楽しみください。
+        迷ったら「今の気分」や「過ごしたい時間」で選んでみてください。
+        <br />
+        出雲香は、香りを選ぶことそのものが、あなた自身を大切にする時間です。
       </p>
     </section>
   );

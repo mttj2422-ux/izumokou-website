@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -24,7 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   const f = getFragrance(slug);
   if (!f) return {};
   const title = `${f.name}｜${f.note}`;
-  const description = `出雲香「${f.name}」— ${f.note}（${f.noteEn}）の香り。出雲・稲佐の浜の海水を用いてつくられたスティックタイプのお香。燃焼時間${productBasics.burnTime}。`;
+  const description = `出雲香「${f.name}」— ${f.note}（${f.noteEn}）の香り。${f.theme}。宿る神様は${f.deity.name}。出雲・稲佐の浜の海水を用いてつくられたスティックタイプのお香。燃焼時間${productBasics.burnTime}。`;
   return {
     title,
     description,
@@ -105,17 +104,13 @@ export default async function FragrancePage({ params }: { params: Promise<Params
             <span>{f.note}</span>
           </p>
           <p className="detail__copy" data-reveal>
-            {f.copy}
+            {f.theme}
           </p>
         </section>
 
         <section className="detail__product" aria-labelledby="detail-product-title">
           <div className="detail__visual">
-            {f.image ? (
-              <Image src={f.image.src} alt={f.image.alt} fill sizes="(min-width: 1024px) 40vw, 90vw" />
-            ) : (
-              <PackageBox fragrance={f} className="detail__package" />
-            )}
+            <PackageBox fragrance={f} className="detail__package" sizes="(min-width: 1024px) 200px, 160px" />
           </div>
 
           <div className="detail__info">
@@ -136,7 +131,7 @@ export default async function FragrancePage({ params }: { params: Promise<Params
                 <dd>{productBasics.burnTime}</dd>
               </div>
               <div>
-                <dt>香りを焚く時間</dt>
+                <dt>おすすめの時間</dt>
                 <dd>{f.moment}</dd>
               </div>
               <div>
@@ -154,6 +149,26 @@ export default async function FragrancePage({ params }: { params: Promise<Params
               </a>
             </div>
             <p className="product__store-note">ご購入は、出雲香のオンラインストア（BASE）にてお受けしています。</p>
+          </div>
+        </section>
+
+        <section className="detail__myth" aria-labelledby="myth-title">
+          <div className="detail__deity" data-reveal>
+            <h2 id="myth-title" className="detail__deity-label">
+              この香りに宿る神様
+            </h2>
+            <p className="detail__deity-name">{f.deity.name}</p>
+            <p className="detail__deity-theme">{f.deity.theme}</p>
+            <p className="detail__deity-story">{f.deity.story}</p>
+          </div>
+          <div className="detail__scenes" data-reveal>
+            <h3 className="detail__deity-label">こんな時に</h3>
+            <ul>
+              {f.scenes.map((s) => (
+                <li key={s}>{s}</li>
+              ))}
+            </ul>
+            <p className="detail__description">{f.description}</p>
           </div>
         </section>
 
