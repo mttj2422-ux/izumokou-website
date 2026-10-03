@@ -34,10 +34,14 @@ export default function FragranceCard({ fragrance: f, index }: { fragrance: Frag
           <span className="chapter__note-ja">{f.note}</span>
         </p>
         <p className="chapter__copy" data-reveal>
-          {f.copy}
+          {f.theme}
         </p>
+        <dl className="chapter__moment chapter__deity" data-reveal>
+          <dt>宿る神様</dt>
+          <dd>{f.deity.name}</dd>
+        </dl>
         <dl className="chapter__moment" data-reveal>
-          <dt>香りを焚く時間</dt>
+          <dt>おすすめの時間</dt>
           <dd>{f.moment}</dd>
         </dl>
         <Link href={`/fragrances/${f.slug}`} className="link-line" data-reveal>

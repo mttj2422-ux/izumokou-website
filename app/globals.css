@@ -2433,3 +2433,108 @@ button {
     font-size: 1.9rem;
   }
 }
+
+/* ==========================================================================
+   香りに宿る神様（公式資料）
+   ========================================================================== */
+
+.chapter__deity dd {
+  font-size: 1.05rem;
+  letter-spacing: 0.24em;
+}
+
+.finder__deity {
+  margin-top: 2rem;
+  display: grid;
+  justify-items: center;
+  gap: 0.3rem;
+  animation-delay: 1.4s !important;
+}
+.finder__deity-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  color: var(--kasumi);
+}
+.finder__deity-name {
+  font-size: 1.35rem;
+  letter-spacing: 0.24em;
+  padding-left: 0.24em;
+  color: color-mix(in srgb, var(--c) 20%, #efece6);
+}
+.finder__deity-theme {
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  color: rgba(235, 233, 227, 0.72);
+}
+.finder__message {
+  max-width: 24rem;
+}
+
+.detail__myth {
+  display: grid;
+  gap: 8svh;
+  padding: 12svh var(--gutter);
+  background: #080b10;
+  border-top: 1px solid rgba(235, 233, 227, 0.06);
+}
+.detail__deity-label {
+  font-size: 0.78rem;
+  letter-spacing: 0.3em;
+  color: var(--kasumi);
+  line-height: 1.8;
+}
+.detail__deity-name {
+  margin-top: 1.4rem;
+  font-size: clamp(2rem, 9vw, 3rem);
+  letter-spacing: 0.2em;
+  line-height: 1.4;
+  color: color-mix(in srgb, var(--c) 20%, #efece6);
+}
+.detail__deity-theme {
+  margin-top: 0.4rem;
+  font-size: 1rem;
+  letter-spacing: 0.24em;
+  color: rgba(235, 233, 227, 0.8);
+}
+.detail__deity-story {
+  margin-top: 2rem;
+  max-width: 26rem;
+  font-size: 0.98rem;
+  line-height: 2.3;
+  letter-spacing: 0.12em;
+  color: rgba(235, 233, 227, 0.86);
+}
+.detail__scenes ul {
+  margin: 1.4rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.9rem;
+  font-size: 0.98rem;
+  letter-spacing: 0.12em;
+  line-height: 1.9;
+}
+.detail__scenes li::before {
+  content: "";
+  display: inline-block;
+  width: 1rem;
+  height: 1px;
+  margin-right: 0.9rem;
+  vertical-align: middle;
+  background: var(--c);
+  opacity: 0.7;
+}
+.detail__description {
+  margin-top: 2.4rem;
+  font-size: 0.95rem;
+  letter-spacing: 0.14em;
+  line-height: 2.1;
+  color: rgba(235, 233, 227, 0.78);
+}
+@media (min-width: 1024px) {
+  .detail__myth {
+    grid-template-columns: 1.2fr 1fr;
+    column-gap: 6vw;
+    align-items: start;
+  }
+}
