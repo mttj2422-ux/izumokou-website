@@ -1544,6 +1544,24 @@ button {
   opacity: 1;
   transform: translateY(-5%);
 }
+/* スマホ：選んだ香りの箱を大きく見せ、ラベルが読めるように */
+@media (max-width: 1023px) {
+  .product__stage {
+    height: auto;
+    min-height: 46svh;
+    padding-top: 22svh;
+  }
+  .product__slot {
+    transition:
+      opacity 1.4s var(--ease),
+      transform 1.4s var(--ease),
+      flex-grow 1.2s var(--ease);
+  }
+  .product__slot.is-active {
+    flex-grow: 2;
+    max-width: none;
+  }
+}
 .product__smoke {
   position: absolute;
   left: 50%;
@@ -1554,7 +1572,8 @@ button {
 .package {
   container-type: inline-size;
   position: relative;
-  aspect-ratio: 1 / 4.6;
+  /* 実際の箱の縦横比（写真の実測 約1:5.5）に合わせる */
+  aspect-ratio: 1 / 5.5;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1568,6 +1587,15 @@ button {
     color-mix(in srgb, var(--c) 90%, #1a2230) 100%
   );
   box-shadow: 0 2.4rem 2.4rem -1.8rem rgba(0, 0, 0, 0.7);
+}
+/* 正式な商品写真：比率を保ち、箱全体とラベルが見えるように */
+.package--photo {
+  aspect-ratio: 1 / var(--ratio, 5.5);
+  padding: 0;
+  background: none;
+}
+.package__img {
+  object-fit: contain;
 }
 .package__mark {
   width: 58%;
@@ -2262,11 +2290,8 @@ button {
     transparent 75%
   );
 }
-.detail__visual img {
-  object-fit: cover;
-}
 .detail__package {
-  width: calc(min(52svh, 34rem) / 4.6);
+  width: calc(min(64svh, 40rem) / var(--ratio, 5.5));
 }
 .detail__heading {
   font-size: clamp(1.5rem, 6vw, 2.2rem);

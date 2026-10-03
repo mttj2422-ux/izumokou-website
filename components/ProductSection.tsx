@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import PackageBox from "./PackageBox";
@@ -33,20 +32,14 @@ export default function ProductSection() {
       <div className="product__layout">
         <div className="product__stage" style={{ "--c": f.color } as React.CSSProperties}>
           <div className="product__glow" aria-hidden="true" />
-          {f.image ? (
-            <div className="product__photo" key={f.slug}>
-              <Image src={f.image.src} alt={f.image.alt} fill sizes="(min-width: 1024px) 50vw, 100vw" />
-            </div>
-          ) : (
-            <div className="product__shelf">
-              {fragrances.map((p, i) => (
-                <div key={p.slug} className={`product__slot ${i === index ? "is-active" : ""}`}>
-                  {i === index && <SmokeEffect className="product__smoke" />}
-                  <PackageBox fragrance={p} />
-                </div>
-              ))}
-            </div>
-          )}
+          <div className="product__shelf">
+            {fragrances.map((p, i) => (
+              <div key={p.slug} className={`product__slot ${i === index ? "is-active" : ""}`}>
+                {i === index && <SmokeEffect className="product__smoke" />}
+                <PackageBox fragrance={p} sizes="(min-width: 1024px) 160px, 100px" />
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="product__info">

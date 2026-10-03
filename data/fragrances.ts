@@ -10,7 +10,8 @@
  *  - color    : 光の色。パッケージの色を参考にした仮の値
  *  - price    : 価格（未確定のため null。null の間は「オンラインストアにてご確認ください」と表示）
  *  - storeUrl : 商品ページ URL（null の間は site.storeUrl を使用）
- *  - image    : 商品写真（null の間は CSS で描いたパッケージを表示）
+ *  - image    : 商品写真（public/images/products/）。null の間は CSS で描いたパッケージを表示
+ *               写真は箱の全体が入るように切り抜き、width / height は実寸のピクセル数（比率の維持に使用）
  */
 
 export type DraftField = "copy" | "moment" | "color" | "price" | "storeUrl" | "image";
@@ -43,6 +44,8 @@ export type Fragrance = {
 };
 
 const ALL_DRAFT: DraftField[] = ["copy", "moment", "color", "price", "storeUrl", "image"];
+/** 正式な商品写真が入った香り（写真以外は仮のまま） */
+const WITHOUT_IMAGE: DraftField[] = ALL_DRAFT.filter((d) => d !== "image");
 
 export const fragrances: Fragrance[] = [
   {
@@ -56,8 +59,8 @@ export const fragrances: Fragrance[] = [
     color: "#a9cdd8",
     price: null,
     storeUrl: null,
-    image: null,
-    drafts: ALL_DRAFT,
+    image: { src: "/images/products/bergamot.jpg", alt: "出雲香「縁」のパッケージ", width: 401, height: 2131 },
+    drafts: WITHOUT_IMAGE,
   },
   {
     slug: "palo-santo",
@@ -84,8 +87,8 @@ export const fragrances: Fragrance[] = [
     color: "#d3d88f",
     price: null,
     storeUrl: null,
-    image: null,
-    drafts: ALL_DRAFT,
+    image: { src: "/images/products/agarwood.jpg", alt: "出雲香「和」のパッケージ", width: 447, height: 2359 },
+    drafts: WITHOUT_IMAGE,
   },
   {
     slug: "sandalwood",
@@ -98,8 +101,8 @@ export const fragrances: Fragrance[] = [
     color: "#c9c1da",
     price: null,
     storeUrl: null,
-    image: null,
-    drafts: ALL_DRAFT,
+    image: { src: "/images/products/sandalwood.jpg", alt: "出雲香「心」のパッケージ", width: 417, height: 2190 },
+    drafts: WITHOUT_IMAGE,
   },
   {
     slug: "marine",
@@ -126,8 +129,8 @@ export const fragrances: Fragrance[] = [
     color: "#e2c7cd",
     price: null,
     storeUrl: null,
-    image: null,
-    drafts: ALL_DRAFT,
+    image: { src: "/images/products/magnolia.jpg", alt: "出雲香「感謝」のパッケージ", width: 446, height: 2387 },
+    drafts: WITHOUT_IMAGE,
   },
   {
     slug: "frankincense",
@@ -140,8 +143,8 @@ export const fragrances: Fragrance[] = [
     color: "#86a3cf",
     price: null,
     storeUrl: null,
-    image: null,
-    drafts: ALL_DRAFT,
+    image: { src: "/images/products/frankincense.jpg", alt: "出雲香「恵海」のパッケージ", width: 352, height: 1953 },
+    drafts: WITHOUT_IMAGE,
   },
 ];
 

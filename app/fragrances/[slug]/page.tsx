@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -111,11 +110,7 @@ export default async function FragrancePage({ params }: { params: Promise<Params
 
         <section className="detail__product" aria-labelledby="detail-product-title">
           <div className="detail__visual">
-            {f.image ? (
-              <Image src={f.image.src} alt={f.image.alt} fill sizes="(min-width: 1024px) 40vw, 90vw" />
-            ) : (
-              <PackageBox fragrance={f} className="detail__package" />
-            )}
+            <PackageBox fragrance={f} className="detail__package" sizes="(min-width: 1024px) 200px, 160px" />
           </div>
 
           <div className="detail__info">
