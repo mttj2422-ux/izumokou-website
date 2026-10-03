@@ -16,12 +16,11 @@ export const site = {
   url: "https://www.izumoko.com",
 
   /**
-   * オンラインストア（BASE）のトップURL。
-   * TODO(仮): BASE ショップの URL が確定したら差し替えてください。
-   * ※ 現在は既存の Jimdo サイト（「商品注文」ボタンがあるページ）を指しています。
-   *   ドメインを新サイトへ切り替えると自分自身へのリンクになるため、切り替え前に必ず BASE の URL へ変更してください。
+   * オンラインストア（BASE）。
+   * ヘッダー・メニュー・香りとの出会い・商品・詳細ページ・最後の場面・フッターの
+   * 購入へのリンクはすべてここを参照します。
    */
-  storeUrl: "https://www.izumoko.com/",
+  storeUrl: "https://mttj2422.base.shop/",
 
   /** Instagram などの URL。null の場合は表示しません。TODO(仮) */
   instagramUrl: null as string | null,

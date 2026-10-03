@@ -34,10 +34,17 @@ export default function ProductSection() {
           <div className="product__glow" aria-hidden="true" />
           <div className="product__shelf">
             {fragrances.map((p, i) => (
-              <div key={p.slug} className={`product__slot ${i === index ? "is-active" : ""}`}>
-                {i === index && <SmokeEffect className="product__smoke" />}
-                <PackageBox fragrance={p} sizes="(min-width: 1024px) 160px, 100px" />
-              </div>
+              <button
+                key={p.slug}
+                type="button"
+                tabIndex={-1}
+                className={`product__slot ${i === index ? "is-active" : ""}`}
+                aria-label={`${p.name}を選ぶ`}
+                onClick={() => setIndex(i)}
+              >
+                <SmokeEffect className="product__smoke" />
+                <PackageBox fragrance={p} sizes="(min-width: 1024px) 120px, 100px" />
+              </button>
             ))}
           </div>
         </div>

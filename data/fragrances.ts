@@ -6,7 +6,8 @@
  *  - theme / moment / scenes / description
  *                                  : 公式資料「出雲香と過ごす、7つの時間」より
  *  - deity                         : 公式資料「八百万の神々と出会う - 香りの神話 -」より
- *  - image                         : 正式な商品写真（public/images/products/）
+ *  - image                         : 正式な商品写真（public/images/products/）。7枚とも同じ縦横比（1:5.5）で、
+ *                                    箱の下端の位置をそろえて切り抜き
  *
  * 【仮情報】drafts に列挙した項目は、確認前の仮の値です。
  *   確定したら値を書き換え、drafts から項目名を外してください。
@@ -80,7 +81,7 @@ export const fragrances: Fragrance[] = [
     color: "#a9cdd8",
     price: null,
     storeUrl: null,
-    image: { src: "/images/products/bergamot.jpg", alt: "出雲香「縁」のパッケージ", width: 401, height: 2131 },
+    image: { src: "/images/products/bergamot-v3.webp", alt: "出雲香「縁」のパッケージ", width: 400, height: 2200 },
     drafts: DRAFTS,
   },
   {
@@ -101,7 +102,7 @@ export const fragrances: Fragrance[] = [
     color: "#c6bfdc",
     price: null,
     storeUrl: null,
-    image: { src: "/images/products/palo-santo.jpg", alt: "出雲香「結」のパッケージ", width: 208, height: 1063 },
+    image: { src: "/images/products/palo-santo-v3.webp", alt: "出雲香「結」のパッケージ", width: 400, height: 2200 },
     drafts: DRAFTS,
   },
   {
@@ -123,7 +124,7 @@ export const fragrances: Fragrance[] = [
     color: "#d3d88f",
     price: null,
     storeUrl: null,
-    image: { src: "/images/products/agarwood.jpg", alt: "出雲香「和」のパッケージ", width: 447, height: 2359 },
+    image: { src: "/images/products/agarwood-v3.webp", alt: "出雲香「和」のパッケージ", width: 400, height: 2200 },
     drafts: DRAFTS,
   },
   {
@@ -144,7 +145,7 @@ export const fragrances: Fragrance[] = [
     color: "#c9c1da",
     price: null,
     storeUrl: null,
-    image: { src: "/images/products/sandalwood.jpg", alt: "出雲香「心」のパッケージ", width: 417, height: 2190 },
+    image: { src: "/images/products/sandalwood-v3.webp", alt: "出雲香「心」のパッケージ", width: 400, height: 2200 },
     drafts: DRAFTS,
   },
   {
@@ -165,7 +166,7 @@ export const fragrances: Fragrance[] = [
     color: "#b3d5de",
     price: null,
     storeUrl: null,
-    image: { src: "/images/products/marine.jpg", alt: "出雲香「神迎」のパッケージ", width: 434, height: 2300 },
+    image: { src: "/images/products/marine-v3.webp", alt: "出雲香「神迎」のパッケージ", width: 400, height: 2200 },
     drafts: DRAFTS,
   },
   {
@@ -186,7 +187,7 @@ export const fragrances: Fragrance[] = [
     color: "#e2c7cd",
     price: null,
     storeUrl: null,
-    image: { src: "/images/products/magnolia.jpg", alt: "出雲香「感謝」のパッケージ", width: 446, height: 2387 },
+    image: { src: "/images/products/magnolia-v3.webp", alt: "出雲香「感謝」のパッケージ", width: 400, height: 2200 },
     drafts: DRAFTS,
   },
   {
@@ -208,7 +209,7 @@ export const fragrances: Fragrance[] = [
     color: "#86a3cf",
     price: null,
     storeUrl: null,
-    image: { src: "/images/products/frankincense.jpg", alt: "出雲香「恵海」のパッケージ", width: 352, height: 1953 },
+    image: { src: "/images/products/frankincense-v3.webp", alt: "出雲香「恵海」のパッケージ", width: 400, height: 2200 },
     drafts: DRAFTS,
   },
 ];
